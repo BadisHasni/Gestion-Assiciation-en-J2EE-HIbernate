@@ -1,0 +1,28 @@
+
+ <!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="beans">
+  <class name="Categorie" table="categorie">
+    <id name="idCategorie" column="idCategorie">
+      <generator class="identity">
+        </generator>
+    </id>
+    <property name="nomCategorie" column="nomCategorie"/>
+     <property name="description" column="description"/>
+    
+
+<!-- pour la relation 1..n 1..n avec Mission-->    
+	    
+	<set name="mission"
+			table="mission_categorie"
+			inverse="true"
+			cascade="save-update, delete"
+			 >
+			<key column ="idCategorie" />
+			<many-to-many class="Mission" column="idMission" />
+			</set>
+   
+  </class>
+</hibernate-mapping>

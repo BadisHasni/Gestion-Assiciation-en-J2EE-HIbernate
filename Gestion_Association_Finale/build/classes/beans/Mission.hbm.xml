@@ -1,0 +1,63 @@
+ <!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="beans">
+  <class name="Mission" table="mission">
+    <id name="idMission" column="idMission">
+      <generator class="identity">
+        </generator>
+    </id>
+    <property name="nomMission" column="nomMission"/>
+    <property name="description" column="description"/>
+    <property name="lieuMission" column="lieuMission"/>
+    <property name="dateMission" column="dateMission"/>
+    <property name="budget" column="budget"/>
+    
+<!-- pour la relation 1..1 1..n avec Administrateur (Plusieurs Mission vers un Administrateur)-->
+      
+    <many-to-one 	name="administrateur" 
+					class="Administrateur" 
+					column="idAdministrateur" 
+					not-null="false" />
+	
+	<!-- pour la relation 1..1 1..1 avec rapport-->
+				
+	<!--  <many-to-one name="rapport"
+			class="Rapport"
+			column="idRapport"
+			
+			cascade="save-update, delete"
+			unique="true" 
+			not-null="false" />-->
+			
+	 <one-to-one name="rapport" class="Rapport"  property-ref="mission"  cascade="save-update, delete" />		
+			
+			
+	<!-- pour la relation 1..n 1..n avec Membre-->
+		
+	<set name="associe" inverse="true" cascade="save-update, delete-orphan">
+					<key column ="idMission" />
+					<one-to-many class="Mission_Membre" />
+					</set>
+					
+	<!-- pour la relation 1..n 1..n avec Categorie-->				
+					
+	<set name="categorie"
+			table="mission_categorie"
+			
+			cascade="save-update">
+			<key column ="idMission" />
+			<many-to-many class="Categorie" column="idCategorie" />
+			</set>
+			
+	<!-- pour la relation 1..1 1..n avec Ched de Groupe-->	
+			
+	<many-to-one name="chef"
+				class="Chef_de_Groupe"
+				column="idChef"
+				not-null="false" />
+      
+     </class>
+</hibernate-mapping>
+

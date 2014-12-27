@@ -1,0 +1,30 @@
+ <!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="beans">
+  <class name="Administrateur" table="administrateur">
+    <id name="idAdministrateur" column="idAdministrateur">
+      <generator class="identity">
+        </generator>
+    </id>
+    <property name="nom" column="nom"/>
+     <property name="prenom" column="prenom"/>
+      <property name="mail" column="mail"/>
+       <property name="date_naissance" column="date_naissance"/>
+        <property name="mdp" column="mdp"/>
+         <property name="login" column="login"/>
+         
+         
+         <!-- pour la relation 1..1 1..n avec Mission-->
+
+	<set name="mission"
+	        inverse="true"
+	        cascade="save-update, delete">
+			<key column ="idAdministrateur" />
+			<one-to-many class="Mission" />
+			</set>
+        
+  </class>
+</hibernate-mapping>
+

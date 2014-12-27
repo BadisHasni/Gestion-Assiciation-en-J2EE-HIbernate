@@ -1,0 +1,59 @@
+ <!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="beans">
+  <class name="Rapport" table="rapport">
+    <id name="idRapport" column="idRapport">
+      <generator class="identity">
+        </generator>
+    </id>
+    <property name="description" column="description"/>
+    <property name="lieu_mission" column="lieu_mission"/>
+    <property name="date_mission" column="date_mission"/>
+    <property name="duree_mission" column="duree_mission"/>
+    <property name="budget_totale" column="budget_totale"/>
+    <property name="budget_hebergement" column="budget_hebergement"/> 
+    <property name="budget_nourriture" column="budget_nourriture"/>
+    <property name="budget_transport" column="budget_transport"/>
+    <property name="dons" column="dons"/>
+    <property name="autre_depence" column="autre_depence"/>
+    
+		    
+	<!-- pour la relation 1..1 1..1 avec Mission-->
+	  
+	  <many-to-one name="mission"
+			class="Mission"
+			column="idMission"
+			
+			cascade="save-update, delete"
+			unique="true" 
+			not-null="false" />
+	  
+	  
+	<!--  <one-to-one name="mission" class="Mission"  property-ref="rapport"  cascade="save-update, delete" />-->
+     	    
+		    
+		      
+	<!-- pour les classes filles rapportjustifier et rapportInterAdmin -->
+	 
+	<joined-subclass
+		name="RapportInterAdmin"
+		table="RapportInterAdmin">
+		
+		<key column="idRapportInterAdmin" />
+		<property name="remarqueAdm" />
+	</joined-subclass>
+
+	<joined-subclass
+		name="RapportJustifier"
+		table="RapportJustifier">
+		
+		<key column="idRapportJustifier" />
+		<property name="justifier" />
+	</joined-subclass>	
+		    
+		    
+     </class>
+</hibernate-mapping>
+

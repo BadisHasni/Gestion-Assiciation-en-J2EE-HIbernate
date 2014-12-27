@@ -1,0 +1,31 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost/GestionAssociationFinale</property>
+    <property name="hibernate.connection.username">root</property>
+    
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    
+    
+    
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+	
+    <mapping resource="beans/Administrateur.hbm.xml"/>
+    <mapping resource="beans/Mission.hbm.xml"/>
+    <mapping resource="beans/Categorie.hbm.xml"/>
+    <mapping resource="beans/Chef_de_Groupe.hbm.xml"/>
+    <mapping resource="beans/Membre.hbm.xml"/>
+    
+    <mapping resource="beans/Mission_Membre.hbm.xml"/>
+    
+    
+    <mapping resource="beans/Rapport.hbm.xml"/>
+    
+    
+    </session-factory>
+</hibernate-configuration>

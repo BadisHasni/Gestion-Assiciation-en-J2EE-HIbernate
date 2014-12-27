@@ -1,0 +1,40 @@
+ <!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="beans">
+  <class name="Chef_de_Groupe" table="chef_de_groupe">
+    <id name="idChef" column="idChef">
+      <generator class="identity">
+        </generator>
+    </id>
+    <property name="nom" column="nom"/>
+      <property name="prenom" column="prenom"/>
+        <property name="age" column="age"/>
+         <property name="mail" column="mail"/>
+          <property name="date_naissance" column="date_naissance"/>
+           <property name="mdp" column="mdp"/>
+           <property name="login" column="login"/>
+           <property name="sexe" column="sexe"/>
+
+    <!-- pour la relation 1..1 1..1 avec Adresse-->
+	  
+	<component name="monAdresse" class="Adresse">
+		<parent name="chef" />
+		<property name="rue" column="rue" not-null="true" />
+		<property name="numero" column="numero" not-null="true" />
+		<property name="codePostal" column="codePostal" not-null="true" />
+	</component>
+	
+<!-- pour la relation 1..1 1..n avec Mission-->
+
+	<set name="mission"
+	        inverse="true"
+	        cascade="save-update, delete">
+			<key column ="idChef" />
+			<one-to-many class="Mission" />
+			</set>
+				
+  </class>
+</hibernate-mapping>
+
